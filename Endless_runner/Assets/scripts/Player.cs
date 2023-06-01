@@ -6,8 +6,12 @@ public class Player : MonoBehaviour
 {
     private Rigidbody rb;
     private float speed = 20f;
-    private float jumpForce = 5f;
+    private float jumpForce = 13f;
     private float turnSpeed = 14f;
+
+    //gravity
+    private float gravityScale = 1.6f;
+    private float globalGravity = -9.81f;
 
     private int currentLane;
     private float laneOffset = 7;
@@ -19,13 +23,23 @@ public class Player : MonoBehaviour
     private bool isPlaying = true;
 
 
+    //crouching
+    private CapsuleCollider coll;
+
+    //projectile
+    [SerializeField]
+    private GameObject kunai;
+    [SerializeField]
+    private Transform attackPoint;
+
 
     void Start()
     {
         anim = transform.GetChild(0).GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        coll = GetComponent<CapsuleCollider>();
         currentLane = 1;
-
+        rb.useGravity = false;
     }
 
     // Update is called once per frame
@@ -33,9 +47,18 @@ public class Player : MonoBehaviour
     {
         if (isPlaying)
         {
+            Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+            rb.AddForce(gravity, ForceMode.Acceleration);
+
             move();
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
                 jump();
+            if(Input.GetKeyDown(KeyCode.Z))
+            {
+                Instantiate(kunai, attackPoint.position, Quaternion.identity);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded)
+                crouch();
         }
     }
 
@@ -72,6 +95,22 @@ public class Player : MonoBehaviour
 
     }
 
+    void crouch()
+    {
+        anim.Play("roll");
+        coll.center = new Vector3(0f, -0.3862723f, 0f);
+        coll.height = 1.227459f;
+        StartCoroutine("crouchCount");
+    }
+
+    IEnumerator crouchCount()
+    {
+        yield return new WaitForSeconds(1f);
+        coll.center = new Vector3(0f, 0f, 0f);
+        coll.height = 2;
+        anim.Play("Run");
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Obstacle")
@@ -84,7 +123,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             isGrounded = true;
-            anim.Play("Running");
+            anim.Play("Run");
         }
     }
 
