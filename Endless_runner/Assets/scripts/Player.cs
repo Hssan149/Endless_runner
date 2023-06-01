@@ -5,12 +5,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody rb;
-    private float speed = 17f;
-    private float jumpForce = 18;
+    private float speed = 20f;
+    private float jumpForce = 5f;
     private float turnSpeed = 14f;
 
     private int currentLane;
-    private float laneOffset = 6;
+    private float laneOffset = 7;
     private bool isGrounded = true;
 
     [SerializeField]
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
         anim = transform.GetChild(0).GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         currentLane = 1;
+
     }
 
     // Update is called once per frame
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "ground")
         {
             isGrounded = true;
-            anim.Play("Run");
+            anim.Play("Running");
         }
     }
 
