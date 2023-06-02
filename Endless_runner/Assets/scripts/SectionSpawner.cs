@@ -10,7 +10,7 @@ public class SectionSpawner : MonoBehaviour
 
     public void spawn()
     {
-        Instantiate(sections[Random.Range(0, 2)], new Vector3(0f, 0f, zPos), Quaternion.identity);
+        Instantiate(sections[Random.Range(0, 3)], new Vector3(0f, 0f, zPos), Quaternion.identity);
         zPos += 147;
     }
 }
