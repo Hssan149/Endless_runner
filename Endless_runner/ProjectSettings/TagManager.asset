@@ -11,6 +11,7 @@ TagManager:
   - main
   - Obstacle
   - sectionStay
+  - petal
   layers:
   - Default
   - TransparentFX
