@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6359192913756767776}
   - component: {fileID: 3846188566475739624}
   - component: {fileID: 6509725465562654000}
+  - component: {fileID: -4297614624031937899}
   m_Layer: 0
   m_Name: petal5
   m_TagString: petal
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3001635280392502976}
   m_LocalRotation: {x: -0.65511525, y: 0.0023542996, z: 0.011235837, w: 0.7554418}
   m_LocalPosition: {x: 0.48876795, y: 1.6083949, z: -7.9531817}
-  m_LocalScale: {x: 100, y: 100.00001, z: 100}
+  m_LocalScale: {x: 80, y: 80, z: 80}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -92,8 +93,20 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3001635280392502976}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.017027423, y: 0.01955635, z: 0.0036099183}
   m_Center: {x: 0.0005668276, y: 0.00020109164, z: -0.0017726402}
+--- !u!114 &-4297614624031937899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001635280392502976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995991b22aa8a1f4d9521ae4f2186fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

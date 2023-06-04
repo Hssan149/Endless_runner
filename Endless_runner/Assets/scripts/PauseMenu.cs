@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
 
     public void restart()
     {
+        GameManager.getInstance().score = 0;
         player.transform.position = spawnPoint.transform.position;
         //show count down
         GameManager.getInstance().pauseMenu.transform.GetChild(0).gameObject.SetActive(true);
@@ -34,6 +35,8 @@ public class PauseMenu : MonoBehaviour
 
     public void mainMenu()
     {
+        GameManager.getInstance().score = 0;
+        player.GetComponent<Player>().points.gameObject.SetActive(false);
         gameObject.SetActive(false);
         player.transform.position = spawnPoint.transform.position;
         Time.timeScale = 1f;

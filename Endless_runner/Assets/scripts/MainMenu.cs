@@ -5,17 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject player;
     public void startGame()
     {
-        Player.anim.Play("Run");
-        gameObject.SetActive(false);
-        GameManager.getInstance().isPlaying = true;
-    }
-
-    IEnumerator playAnim()
-    {
-        yield return new WaitForSeconds(5f);
-        //play different idle animations
+        player.GetComponent<Player>().points.gameObject.SetActive(true);
+        GameManager.getInstance().startGame();
+        gameObject.SetActive(false);       
     }
 
     public void showSettings()
