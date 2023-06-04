@@ -36,7 +36,6 @@ public class Player : MonoBehaviour
         coll = GetComponent<CapsuleCollider>();
         currentLane = 1;
         rb.useGravity = false;
-        anim.Play("death");
     }
 
     // Update is called once per frame
