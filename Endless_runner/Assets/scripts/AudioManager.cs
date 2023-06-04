@@ -17,8 +17,8 @@ public class AudioManager : MonoBehaviour
     public bool isSfxMuted = false;
 
     //reference to audio menu game object
-    //[SerializeField]
-    //private AudioMenu am;
+    [SerializeField]
+    private AudioMenu am;
 
     private void Awake()
     {
@@ -33,8 +33,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    /*
-     * private void Start()
+    
+      private void Start()
     {
         am.musicSlider.value = PlayerPrefs.GetFloat("bgmVol");//saves the slider value that the player uses 
         am.sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");//saves the slider value that the player uses 
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
         musicSoruce.gameObject.GetComponent<AudioSource>().volume = am.musicSlider.value; //changes the music volume based on the slider value
         playMusic("bgm_mainMenu"); //play main bgm
     }
-    */
+    
 
     public void playMusic(string name)
     {
@@ -57,6 +57,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+
     public void stopMusic(string name)// stop the music
     {
         Sound s = Array.Find(music, x => x.name == name);
@@ -69,7 +71,6 @@ public class AudioManager : MonoBehaviour
             musicSoruce.Stop();
         }
     }
-
     public void playSfx(string name)
     {
         Sound sf = Array.Find(sfx, x => x.name == name);

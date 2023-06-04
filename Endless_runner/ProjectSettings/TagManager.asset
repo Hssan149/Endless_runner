@@ -6,6 +6,12 @@ TagManager:
   tags:
   - ground
   - section
+  - obstetrics
+  - pause
+  - main
+  - Obstacle
+  - sectionStay
+  - petal
   layers:
   - Default
   - TransparentFX

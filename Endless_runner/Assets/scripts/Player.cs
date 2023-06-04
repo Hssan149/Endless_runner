@@ -17,11 +17,7 @@ public class Player : MonoBehaviour
     private float laneOffset = 7;
     private bool isGrounded = true;
 
-    [SerializeField]
-    private Animator anim;
-
-    private bool isPlaying = true;
-
+    public static Animator anim;
 
     //crouching
     private CapsuleCollider coll;
@@ -40,15 +36,33 @@ public class Player : MonoBehaviour
         coll = GetComponent<CapsuleCollider>();
         currentLane = 1;
         rb.useGravity = false;
+        anim.Play("death");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isPlaying)
+        if (GameManager.getInstance().isPlaying)
         {
             Vector3 gravity = globalGravity * gravityScale * Vector3.up;
             rb.AddForce(gravity, ForceMode.Acceleration);
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameManager.getInstance().paused = !GameManager.getInstance().paused;
+                
+            }
+
+            if (GameManager.getInstance().paused)
+            {
+                Time.timeScale = 0f;
+                GameManager.getInstance().pauseMenu.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                GameManager.getInstance().pauseMenu.SetActive(false);
+            }
 
             move();
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
@@ -111,13 +125,24 @@ public class Player : MonoBehaviour
         anim.Play("Run");
     }
 
+    void death()
+    {
+        Time.timeScale = 0;
+        //stop audio
+        GameManager.getInstance().pauseMenu.transform.GetChild(0).gameObject.SetActive(false);
+        GameManager.getInstance().pauseMenu.SetActive(true);
+        GameManager.getInstance().isPlaying = false;
+        GameManager.getInstance().paused = true;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
             print("Dead");
-           // anim.Play("Stumble Backwards");
-            isPlaying = false;
+            death();
+            // anim.Play("Stumble Backwards");
+            GameManager.getInstance().isPlaying = false;
         }
 
         if (collision.gameObject.tag == "ground")
@@ -133,6 +158,10 @@ public class Player : MonoBehaviour
         {
             FindObjectOfType<SectionSpawner>().spawn();
             Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag== "sectionStay")
+        {
+            FindObjectOfType<SectionSpawner>().spawn();
         }
     }
 }
