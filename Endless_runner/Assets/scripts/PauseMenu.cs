@@ -35,14 +35,15 @@ public class PauseMenu : MonoBehaviour
 
     public void mainMenu()
     {
+        GameManager.getInstance().isPlaying = false;
+        Player.anim.Play("idle1");//change to idles array.
         GameManager.getInstance().score = 0;
-        player.GetComponent<Player>().points.gameObject.SetActive(false);
+        player.GetComponent<Player>().points.enabled = false;
         gameObject.SetActive(false);
         player.transform.position = spawnPoint.transform.position;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = true;
         Time.timeScale = 1f;
         GameManager.getInstance().pauseMenu.transform.GetChild(0).gameObject.SetActive(true);
-        Player.anim.Play("idle1");//change to idles array.
-        GameManager.getInstance().isPlaying = false;
         GameManager.getInstance().paused = false;
         GameManager.getInstance().mainMenu.SetActive(true);
         SectionSpawner.zPos = 290f;

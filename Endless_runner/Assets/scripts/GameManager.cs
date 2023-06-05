@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject settings;
     public int score = 0;
+    private bool started = false;
 
     public GameObject camera1;
 
@@ -49,17 +50,27 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         mainMenu.SetActive(true);
         AudioManager.Instance.playMusic("sakuraBloom");
+        started = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public void startGame()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = false;
         camera1.GetComponent<Animator>().enabled = true;
+        if(!started)
         StartCoroutine("playAnim");
+        else
+        {
+            Player.anim.Play("Run");
+            getInstance().isPlaying = true;
+        }
     }
 
     IEnumerator playAnim()
     {
         yield return new WaitForSeconds(7.5f);
+        started = true;
         camera1.GetComponent<Animator>().enabled = false;
         Player.anim.Play("Run");
         getInstance().isPlaying = true;

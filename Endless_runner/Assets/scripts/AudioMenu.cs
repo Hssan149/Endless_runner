@@ -11,6 +11,7 @@ public class AudioMenu : MonoBehaviour
     public void goBack()//closed the audio settings menu
     {
         gameObject.SetActive(false);
+        GameManager.getInstance().mainMenu.SetActive(true);
     }
     private void Awake()
     {

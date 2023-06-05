@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     private GameObject player;
     public void startGame()
     {
-        player.GetComponent<Player>().points.gameObject.SetActive(true);
+        player.GetComponent<Player>().points.enabled = true;
         GameManager.getInstance().startGame();
         gameObject.SetActive(false);       
     }

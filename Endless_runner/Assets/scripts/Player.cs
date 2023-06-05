@@ -8,8 +8,8 @@ public class Player : MonoBehaviour
 {
     private Rigidbody rb;
     private float speed = 20f;
-    private float jumpForce = 13f;
-    private float turnSpeed = 14f;
+    private float jumpForce = 16f;
+    private float turnSpeed = 16f;
 
     //gravity
     private float gravityScale = 1.6f;
@@ -40,7 +40,8 @@ public class Player : MonoBehaviour
         currentLane = 1;
         rb.useGravity = false;
         anim.Play("idle1");
-        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        //gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        points.enabled = false;
     }
 
     // Update is called once per frame
@@ -163,7 +164,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "section")
         {
             FindObjectOfType<SectionSpawner>().spawn();
-            Destroy(other.gameObject);
+            destroySec(other.gameObject);
         }
         else if (other.gameObject.tag== "sectionStay")
         {
@@ -174,5 +175,11 @@ public class Player : MonoBehaviour
             GameManager.getInstance().score++;
             Destroy(other.gameObject);
         }
+    }
+
+    IEnumerator destroySec(GameObject sec)
+    {
+        yield return new WaitForSeconds(3f);
+        Destroy(sec);
     }
 }
