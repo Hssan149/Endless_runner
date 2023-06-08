@@ -18,6 +18,7 @@ public class PauseMenu : MonoBehaviour
     public void restart()
     {
         GameManager.getInstance().score = 0;
+        Player.anim.Play("Run");
         player.transform.position = spawnPoint.transform.position;
         //show count down
         GameManager.getInstance().pauseMenu.transform.GetChild(0).gameObject.SetActive(true);
@@ -39,7 +40,6 @@ public class PauseMenu : MonoBehaviour
         Player.anim.Play("idle1");//change to idles array.
         GameManager.getInstance().score = 0;
         player.GetComponent<Player>().points.enabled = false;
-        gameObject.SetActive(false);
         player.transform.position = spawnPoint.transform.position;
         GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>().isKinematic = true;
         Time.timeScale = 1f;
@@ -52,6 +52,7 @@ public class PauseMenu : MonoBehaviour
         {
             Destroy(sec);
         }
+        gameObject.SetActive(false);
     }
 
 }

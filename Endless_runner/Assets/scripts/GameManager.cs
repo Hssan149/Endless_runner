@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
         StartCoroutine("playAnim");
         else
         {
+            AudioManager.Instance.playSfx("pong");
+            camera1.GetComponent<Animator>().enabled = false;
             Player.anim.Play("Run");
             getInstance().isPlaying = true;
         }
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
     IEnumerator playAnim()
     {
         yield return new WaitForSeconds(7.5f);
+        AudioManager.Instance.playSfx("pong");
         started = true;
         camera1.GetComponent<Animator>().enabled = false;
         Player.anim.Play("Run");

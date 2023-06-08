@@ -8,11 +8,12 @@ public class Player : MonoBehaviour
 {
     private Rigidbody rb;
     private float speed = 20f;
-    private float jumpForce = 16f;
+    private float jumpForce = 27f;
     private float turnSpeed = 16f;
+    private bool canAttack = true;
 
     //gravity
-    private float gravityScale = 1.6f;
+    private float gravityScale = 4f;
     private float globalGravity = -9.81f;
 
     private int currentLane;
@@ -76,11 +77,23 @@ public class Player : MonoBehaviour
                 jump();
             if(Input.GetKeyDown(KeyCode.Z))
             {
-                Instantiate(kunai, attackPoint.position, Quaternion.identity);
-            }
+
+                if (canAttack)
+                {
+                    Instantiate(kunai, attackPoint.position, Quaternion.identity);
+                    canAttack = false;
+                    StartCoroutine("attackCool");
+                }
+             }
             if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded)
                 crouch();
         }
+    }
+
+    IEnumerator attackCool()
+    {
+        yield return new WaitForSeconds(2f);
+        canAttack = true;
     }
 
     private void move()
@@ -134,11 +147,17 @@ public class Player : MonoBehaviour
 
     void death()
     {
+        GameManager.getInstance().isPlaying = false;
+        anim.Play("death");
+        StartCoroutine("deathAnim");
+    }
+
+    IEnumerator deathAnim()
+    {
+        yield return new WaitForSeconds(2f);
         Time.timeScale = 0;
-        //stop audio
         GameManager.getInstance().pauseMenu.transform.GetChild(0).gameObject.SetActive(false);
         GameManager.getInstance().pauseMenu.SetActive(true);
-        GameManager.getInstance().isPlaying = false;
         GameManager.getInstance().paused = true;
     }
 
@@ -146,7 +165,6 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Obstacle")
         {
-            print("Dead");
             death();
             // anim.Play("Stumble Backwards");
             GameManager.getInstance().isPlaying = false;
@@ -173,6 +191,7 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "petal")
         {
             GameManager.getInstance().score++;
+            AudioManager.Instance.playSfx("coin");
             Destroy(other.gameObject);
         }
     }
