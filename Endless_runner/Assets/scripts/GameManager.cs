@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject mainMenu;
     public GameObject settings;
+    public GameObject credits;
     public int score = 0;
     private bool started = false;
 

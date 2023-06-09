@@ -33,12 +33,8 @@ public class Camera : MonoBehaviour
 //add (decorates) to the object withouth changing its original structure.
 // structure-> main object is an interface, classes of that objects extendes that interface, decorator extend the main obj, main obj composites the decorator
 // all decorations extends the decorator
-// imp n java
-//public class
+//design pattern: flyweight creational and could be structual
+//make  objects with unique values, when trying to make an object with a value that is used before,returns a reference to an existing object with that value rather than creating a new object every time.
 //
-//
-//design pattern: flyweight || fly ?? creational and could be structual
-//make  objects with unique values, when trying an object with a value that is used before a reference to an existing object rather than creating a new object every time.
-//
-// strategy, command, observer, factory, state
+// strategy, command, observer, factory, state other design patterns
 //

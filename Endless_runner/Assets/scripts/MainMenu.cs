@@ -20,6 +20,12 @@ public class MainMenu : MonoBehaviour
        GameManager.getInstance().settings.SetActive(true);
     }
 
+    public void showCredits()
+    {
+        gameObject.SetActive(false);
+        GameManager.getInstance().credits.SetActive(true);
+    }
+
     public void quit()
     {
         Application.Quit();
